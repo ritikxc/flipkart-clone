@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const initSchema = require('./config/schema');
+const { checkDatabaseConnection } = require('./config/dbChecker');
 
 const app = express();
 
@@ -38,6 +39,13 @@ const start = async () => {
     console.log('🚀 Starting server...');
     console.log('   NODE_ENV:', process.env.NODE_ENV || 'development');
     console.log('   PORT:', PORT);
+    
+    // Run database checks before starting
+    const dbOk = await checkDatabaseConnection();
+    if (!dbOk) {
+      console.error('❌ Database checks failed. Fix the errors above and try again.');
+      process.exit(1);
+    }
     
     await initSchema();
     
