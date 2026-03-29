@@ -1,8 +1,14 @@
 const pool = require('./database');
 
 const initSchema = async () => {
-  const connection = await pool.getConnection();
+  let connection;
   try {
+    console.log('🔄 Initializing database schema...');
+    console.log('   DATABASE_URL:', process.env.DATABASE_URL ? 'Set (hidden)' : 'Not set (using fallback)');
+    
+    connection = await pool.getConnection();
+    console.log('✅ Database connection established');
+    
     // Users table (default user, no auth required)
     await connection.query(`
       CREATE TABLE IF NOT EXISTS users (
@@ -137,8 +143,26 @@ const initSchema = async () => {
     `);
 
     console.log('✅ Database schema initialized successfully');
+  } catch (err) {
+    console.error('❌ Schema initialization failed:', err.message);
+    console.error('   Error Code:', err.code);
+    console.error('   Error Stack:', err.stack);
+    
+    if (err.code === 'ER_ACCESS_DENIED_ERROR') {
+      console.error('   → Authentication failed. Check your DATABASE_URL username/password.');
+    } else if (err.code === 'ECONNREFUSED') {
+      console.error('   → Connection refused. Check if database is running and host/port are correct.');
+    } else if (err.code === 'ENOTFOUND') {
+      console.error('   → Host not found. Check your DATABASE_URL hostname.');
+    } else if (err.code === 'ETIMEDOUT' || err.code === 'EHOSTUNREACH') {
+      console.error('   → Network timeout/unreachable. Check database server availability and firewall rules.');
+    }
+    
+    throw err;
   } finally {
-    connection.release();
+    if (connection) {
+      connection.release();
+    }
   }
 };
 

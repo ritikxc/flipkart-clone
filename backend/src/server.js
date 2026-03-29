@@ -35,13 +35,20 @@ const PORT = process.env.PORT || 5000;
 
 const start = async () => {
   try {
+    console.log('🚀 Starting server...');
+    console.log('   NODE_ENV:', process.env.NODE_ENV || 'development');
+    console.log('   PORT:', PORT);
+    
     await initSchema();
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running on http://localhost:${PORT}`);
+    
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`✨ Server running on http://localhost:${PORT}`);
       console.log(`   API: http://localhost:${PORT}/api`);
+      console.log(`   Health: http://localhost:${PORT}/api/health`);
     });
   } catch (err) {
     console.error('❌ Failed to start server:', err.message);
+    console.error('   Tip: Check database connection, credentials, and network accessibility.');
     process.exit(1);
   }
 };
