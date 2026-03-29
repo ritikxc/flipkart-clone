@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { CartProvider } from './context/CartContext';
+import { healthCheck } from './utils/api';
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import HomePage from './pages/HomePage';
@@ -25,6 +26,13 @@ import NotificationsPage from './pages/account/NotificationsPage';
 import './styles/global.css';
 
 function App() {
+  useEffect(() => {
+    // Verify backend connectivity on app load
+    healthCheck()
+      .then(() => console.log('✅ Backend is available'))
+      .catch(() => console.warn('⚠️  Backend is not responding - using cached data'));
+  }, []);
+
   return (
     <CartProvider>
       <Router>
