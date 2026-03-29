@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-primary: #2874f0;
+  --color-accent: #fb641b;
+  --color-secondary-cta: #ff9f00;
+  --flipkart-blue: #2874f0;
+  --flipkart-yellow: #ff9f00;
+  --flipkart-orange: #fb641b;
+  --flipkart-green: #388e3c;
+  --flipkart-red: #ff6161;
+  --text-primary: #212121;
+  --text-secondary: #878787;
+  --border-color: #e0e0e0;
+  --bg-grey: #f1f3f6;
+  --white: #ffffff;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --nav-bar-height: 56px;
+  --category-bar-height: 0px;
+  --nav-offset: var(--nav-bar-height);
+  --nav-offset-mobile: var(--nav-bar-height);
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  background-color: var(--bg-grey);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-family: inherit;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  padding-top: var(--nav-offset);
+  width: 100%;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Shared section header (listing / home blocks) */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--flipkart-blue);
+}
+
+.section-header h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.see-all {
+  color: var(--flipkart-blue);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.see-all:hover {
+  text-decoration: underline;
+  opacity: 0.9;
+}
+
+/* Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--flipkart-orange);
+  color: white;
+  padding: 12px 40px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #e85b15;
+  box-shadow: var(--shadow-card);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--flipkart-yellow);
+  color: white;
+  padding: 12px 40px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: #e5900a;
+  box-shadow: var(--shadow-card);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--flipkart-blue);
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--flipkart-blue);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn-outline:hover {
+  background: rgba(40, 116, 240, 0.08);
+}
+
+/* Cards */
+.card {
+  background: white;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+/* Rating (shared: PDP, cards, wishlist, orders) */
+.rating-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: #2e7d32;
+  color: #fff;
+  padding: 4px 8px;
+  min-height: 22px;
+  line-height: 1;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  border-radius: 4px;
+  flex-shrink: 0;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+.rating-badge.low {
+  background: #c2410c;
+}
+
+.rating-badge.mid {
+  background: #e69100;
+  color: #1a1a1a;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+}
+
+.rating-badge.green {
+  background: #2e7d32;
+  color: #fff;
+}
+
+.rating-badge__value {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.rating-badge__star {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  font-size: 11px;
+  margin-top: 1px;
+  opacity: 0.98;
+}
+
+.rating-badge.mid .rating-badge__star {
+  color: #1a1a1a;
+  opacity: 0.85;
+}
+
+/* Compact grid cards / wishlist: slightly wider pill */
+.rating-badge--card {
+  padding: 4px 10px 4px 8px;
+  min-height: 24px;
+  gap: 5px;
+}
+
+/* Price */
+.price-current {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.price-original {
+  color: var(--text-secondary);
+  text-decoration: line-through;
+  font-size: 16px;
+}
+
+.price-discount {
+  color: var(--flipkart-green);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Loading */
+.spinner-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+  padding: 48px 16px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-color);
+  border-top-color: var(--flipkart-blue);
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.page-surface {
+  background: var(--bg-grey);
+  min-height: 60vh;
+}
+
+.empty-state-msg {
+  text-align: center;
+  padding: 80px 24px;
+  background: white;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-card);
+  max-width: 480px;
+  margin: 24px auto;
+}
+
+.empty-state-msg h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.empty-state-msg .btn-primary {
+  margin-top: 16px;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding-top: var(--nav-offset-mobile);
+  }
+
+  .section-header h2 {
+    font-size: 18px;
+  }
+}

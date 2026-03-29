@@ -1,0 +1,131 @@
+.ocp-page { padding: 16px; background: var(--bg-grey); }
+.ocp-container { max-width: 960px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+
+.ocp-success-banner {
+  background: var(--flipkart-green);
+  color: white;
+  padding: 24px 32px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.success-icon { font-size: 48px; }
+.ocp-success-banner h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+.ocp-success-banner p { font-size: 14px; opacity: 0.9; }
+
+.ocp-order-id-card {
+  background: white;
+  border-radius: 2px;
+  padding: 20px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.order-id-info { display: flex; flex-direction: column; gap: 4px; }
+.order-id-label { font-size: 12px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+.order-id-value { font-size: 14px; font-weight: 500; color: var(--text-primary); word-break: break-all; }
+.status-badge {
+  display: inline-block;
+  background: var(--flipkart-blue);
+  color: white;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Tracking */
+.ocp-tracking { background: white; border-radius: 2px; padding: 24px; }
+.ocp-tracking h2 { font-size: 16px; font-weight: 700; margin-bottom: 20px; }
+.tracking-steps {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.tracking-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  flex: 1;
+}
+.step-icon {
+  width: 44px; height: 44px;
+  background: var(--border-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  z-index: 1;
+}
+.tracking-step.done .step-icon { background: #e8f5e9; }
+.step-label { font-size: 12px; color: var(--text-secondary); text-align: center; }
+.tracking-step.done .step-label { color: var(--flipkart-green); font-weight: 500; }
+.step-connector {
+  position: absolute;
+  top: 22px;
+  left: 75%;
+  right: -25%;
+  height: 2px;
+  background: var(--border-color);
+  z-index: 0;
+}
+.step-connector.done { background: var(--flipkart-green); }
+
+/* Grid */
+.ocp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.ocp-section {
+  background: white;
+  border-radius: 2px;
+  padding: 20px 24px;
+  height: fit-content;
+}
+.ocp-section h2 { font-size: 16px; font-weight: 700; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); }
+
+.ocp-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border-color); }
+.ocp-item:last-child { border-bottom: none; }
+.ocp-item-img { width: 72px; height: 72px; object-fit: contain; border: 1px solid var(--border-color); border-radius: 4px; padding: 4px; }
+.ocp-item-name { font-size: 14px; color: var(--text-primary); margin-bottom: 4px; }
+.ocp-item-qty { font-size: 13px; color: var(--text-secondary); }
+.ocp-item-price { font-size: 15px; font-weight: 500; margin-top: 4px; }
+
+.ocp-address p { font-size: 14px; color: var(--text-primary); line-height: 1.7; }
+.addr-name { font-weight: 700; font-size: 15px; }
+.addr-phone { color: var(--text-secondary); margin-top: 4px; }
+
+.ocp-price-rows { display: flex; flex-direction: column; gap: 0; }
+.ocp-price-row { display: flex; justify-content: space-between; padding: 10px 0; font-size: 14px; border-bottom: 1px solid var(--border-color); }
+.ocp-price-row:last-child { border-bottom: none; }
+.ocp-price-row.total { font-size: 16px; font-weight: 700; }
+.ocp-price-row.green, .green { color: var(--flipkart-green); }
+
+.ocp-ctas { display: flex; gap: 16px; justify-content: center; margin-top: 8px; }
+.ocp-btn-primary {
+  background: var(--flipkart-orange);
+  color: white;
+  padding: 12px 32px;
+  border-radius: 2px;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.ocp-btn-secondary {
+  background: white;
+  color: var(--flipkart-blue);
+  border: 2px solid var(--flipkart-blue);
+  padding: 12px 32px;
+  border-radius: 2px;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .ocp-grid { grid-template-columns: 1fr; }
+  .tracking-steps { overflow-x: auto; gap: 0; }
+  .ocp-ctas { flex-direction: column; align-items: center; }
+}
