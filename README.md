@@ -295,7 +295,7 @@ GET    /api/wishlist/check/:id    — Check if wishlisted
 4. **Deployment**: Connect GitHub repo to Vercel and deploy automatically
 
 ### Production URLs
-- **Frontend**: Deployed on Vercel (configure in Vercel dashboard)
+- **Frontend**: [Deployed on Vercel (configure in Vercel dashboard)](https://flipkart-clone-seven-rose.vercel.app/)
 - **Backend**: https://flipkart-clone2-az4c.onrender.com
 - **API Base**: https://flipkart-clone2-az4c.onrender.com/api
 
