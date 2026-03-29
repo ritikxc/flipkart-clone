@@ -12,6 +12,7 @@ A fully functional e-commerce web application that replicates Flipkart's design 
 | Backend    | Node.js, Express.js          |
 | Database   | MySQL 8+                     |
 | Styling    | CSS Modules (custom, no UI framework) |
+| Deployment | Vercel (Frontend), Render (Backend) |
 
 ---
 
@@ -92,6 +93,8 @@ wishlist          — Saved/wishlisted products per user
 - ✅ Responsive design (mobile, tablet, desktop)
 - ✅ Toast notifications for cart/wishlist actions
 - ✅ Image carousel with hover-thumbnail navigation
+- ✅ Database connectivity checker for deployment troubleshooting
+- ✅ Environment-based API configuration for seamless local/production switching
 
 ---
 
@@ -101,6 +104,7 @@ wishlist          — Saved/wishlisted products per user
 - Node.js v18+
 - MySQL 8+
 - npm
+- Git
 
 ### 1. Clone & Setup
 
@@ -129,6 +133,9 @@ cp .env.example .env
 # Run schema + seed (creates tables & inserts 20 sample products)
 npm run seed
 
+# Optional: Test database connection
+node src/config/dbChecker.js
+
 # Start dev server
 npm run dev
 # Server runs at http://localhost:5000
@@ -140,8 +147,11 @@ npm run dev
 cd ../frontend
 npm install
 
-# Create .env (optional, defaults to localhost:5000)
+# Create .env for local development (optional, defaults to localhost:5000)
 echo "REACT_APP_API_URL=http://localhost:5000/api" > .env
+
+# For production deployment, create .env with production backend URL
+echo "REACT_APP_API_URL=https://flipkart-clone2-az4c.onrender.com/api" > .env
 
 # Start React app
 npm start
@@ -168,12 +178,15 @@ The seed script (`npm run seed`) populates:
 
 ```
 flipkart-clone/
+├── README.md
+├── temp_seed_updater.js          # Utility for updating seed data
 ├── backend/
 │   ├── src/
 │   │   ├── config/
-│   │   │   ├── database.js     # MySQL connection pool
-│   │   │   ├── schema.js       # Table creation (init on startup)
-│   │   │   └── seed.js         # Sample data seeder
+│   │   │   ├── database.js       # MySQL connection pool with SSL support
+│   │   │   ├── schema.js         # Table creation (init on startup)
+│   │   │   ├── seed.js           # Sample data seeder
+│   │   │   └── dbChecker.js      # Database connectivity diagnostic tool
 │   │   ├── controllers/
 │   │   │   ├── productController.js
 │   │   │   ├── cartController.js
@@ -184,7 +197,7 @@ flipkart-clone/
 │   │   │   ├── cart.js
 │   │   │   ├── orders.js
 │   │   │   └── wishlist.js
-│   │   └── server.js           # Express app entry point
+│   │   └── server.js             # Express app entry point
 │   ├── .env.example
 │   └── package.json
 │
@@ -199,7 +212,7 @@ flipkart-clone/
         │   └── product/
         │       └── ProductCard.js + .css
         ├── context/
-        │   └── CartContext.js   # Global cart state
+        │   └── CartContext.js     # Global cart state
         ├── pages/
         │   ├── HomePage.js
         │   ├── ProductListPage.js
@@ -212,7 +225,7 @@ flipkart-clone/
         ├── styles/
         │   └── global.css
         ├── utils/
-        │   └── api.js           # Axios API helpers
+        │   └── api.js             # Axios API helpers with environment config
         ├── App.js
         └── index.js
 ```
@@ -253,25 +266,69 @@ GET    /api/wishlist/check/:id    — Check if wishlisted
 6. **Images**: Product images use Unsplash URLs. The `product_images` table supports multiple images per product with a `is_primary` flag for card thumbnails.
 7. **Responsive**: Mobile-first media queries; sidebar filters hidden on small screens.
 8. **Free Delivery**: Applied automatically when subtotal ≥ ₹500.
+9. **Environment Configuration**: Frontend uses `REACT_APP_API_URL` for seamless switching between local development and production deployments.
+10. **Database Diagnostics**: `dbChecker.js` provides detailed connection testing for troubleshooting deployment issues.
 
 ---
 
 ## 🚢 Deployment
 
-### Backend (Render / Railway)
-1. Set environment variables matching `.env.example`
-2. Build command: `npm install`
-3. Start command: `node src/server.js`
-4. Run seed: `node src/config/seed.js` (once)
+### Backend (Render)
+1. **Service URL**: https://flipkart-clone2-az4c.onrender.com
+2. **Environment Variables**:
+   ```
+   DATABASE_URL=mysql://user:password@host:port/database
+   NODE_ENV=production
+   ```
+3. **Build Command**: `npm install`
+4. **Start Command**: `node src/server.js`
+5. **Database Seeding**: Run `node src/config/seed.js` once after deployment
+6. **Health Check**: Use `node src/config/dbChecker.js` for connection diagnostics
 
-### Frontend (Vercel / Netlify)
-1. Set `REACT_APP_API_URL=https://your-backend-url.com/api`
-2. Build command: `npm run build`
-3. Publish directory: `build`
+### Frontend (Vercel)
+1. **Environment Variables**:
+   ```
+   REACT_APP_API_URL=https://flipkart-clone2-az4c.onrender.com/api
+   ```
+2. **Build Command**: `npm run build`
+3. **Publish Directory**: `build`
+4. **Deployment**: Connect GitHub repo to Vercel and deploy automatically
+
+### Production URLs
+- **Frontend**: Deployed on Vercel (configure in Vercel dashboard)
+- **Backend**: https://flipkart-clone2-az4c.onrender.com
+- **API Base**: https://flipkart-clone2-az4c.onrender.com/api
+
+---
+
+## 🛠️ Troubleshooting
+
+### Database Connection Issues
+```bash
+# Test database connection
+cd backend
+node src/config/dbChecker.js
+```
+
+### API Configuration
+- Ensure `REACT_APP_API_URL` is set correctly in frontend `.env`
+- For local development: `http://localhost:5000/api`
+- For production: `https://flipkart-clone2-az4c.onrender.com/api`
+
+### Build Issues
+```bash
+# Clear node_modules and reinstall
+rm -rf node_modules package-lock.json
+npm install
+
+# For frontend production build
+npm run build
+```
 
 ---
 
 ## 👤 Author
 
 Built for SDE Intern Full-Stack Assignment  
-Stack: React.js · Node.js · Express.js · MySQL
+Stack: React.js · Node.js · Express.js · MySQL  
+Deployment: Vercel · Render
