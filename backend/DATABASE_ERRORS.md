@@ -125,7 +125,7 @@ mysql://username:password@hostname:port/database
 Examples:
 ```
 mysql://root:password@localhost:3306/flipkart_clone
-mysql://root:xBfnDyYdnSOIrtreSfmbBCSQeXRCxUBJ@hopper.proxy.rlwy.net:46348/railway
+mysql://root:xBfnDyYdnSOIrtreSfmbBCSQeXRC****@hopper.proxy.rlwy.net:46348/railway
 ```
 
 ---
